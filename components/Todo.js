@@ -42,7 +42,7 @@ class Todo {
     this._todoDate = this._todoElement.querySelector(".todo__date");
     this._todoDeleteBtn = this._todoElement.querySelector(".todo__delete-btn");
 
-    this._todoNameEl.textcontent = this._data.name;
+    this._todoNameEl.textContent = this._data.name;
     this._todoDate.textContent = `Due: ${this._formatDate(this._data.date)}`;
 
     this._generateCheckboxEl();

@@ -1,16 +1,22 @@
 class Todo {
-  constructor(data, selector) {
+  constructor(data, selector, handleCheck, handleDelete, handleAddTodo) {
     this._data = data;
     this._templateElement = document.querySelector(selector);
+    this._handleCheck = handleCheck;
+    this._handleDelete = handleDelete;
+    this._handleAddTodo - handleAddTodo;
   }
 
   _setEventListeners() {
-    this._todoCheckboxEl.addEventListener("change", () => {
-      this._data.completed = !this._data.completed;
+    this._todoDeleteBtn.addEventListener("click", () => {
+      this._handleDelete(this._completed);
+      this._remove();
     });
 
-    this._todoDeleteBtn.addEventListener("click", () => {
-      this._todoElement.remove();
+    this._todoCheckboxEl.addEventListener("click", () => {
+      this._data.completed = !this._data.completed;
+      this._toggleCompletion();
+      this._handleCheck(this._data.completed);
     });
   }
 
@@ -22,16 +28,27 @@ class Todo {
     this._todoLabel.setAttribute("for", `todo-${this._data.id}`);
   }
 
-  _formatDate(dateString) {
-    const date = new Date(dateString);
-    return !isNaN(date)
-      ? date.toLocaleDateString("en-US", {
+  _generateDatesEl() {
+    this._dueDate = new Date(this._data.date);
+    if (!isNaN(this._dueDate)) {
+      this._todoDate.textContent = `Due: ${this._dueDate.toLocaleString(
+        "en-US",
+        {
           year: "numeric",
           month: "short",
           day: "numeric",
-        })
-      : "Invalid Date";
+        }
+      )}`;
+    }
   }
+
+  _toggleCompletion = () => {
+    this._completed = !this._completed;
+  };
+
+  _remove = () => {
+    this._todoElement.remove();
+  };
 
   getView() {
     this._todoElement = this._templateElement.content
@@ -47,6 +64,7 @@ class Todo {
 
     this._generateCheckboxEl();
     this._setEventListeners();
+    this._generateDatesEl();
 
     return this._todoElement;
   }

@@ -26,6 +26,22 @@ const renderTodo = (item) => {
   addItem(todo);
 };
 
+const section = new Section({
+  items: initialTodos,
+  renderer: renderTodo,
+  containerSelector: ".todos__list",
+});
+
+section.renderItems();
+
+addTodoButton.addEventListener("click", () => {
+  addTodoPopup.open();
+});
+
+addTodoCloseBtn.addEventListener("click", () => {
+  addTodoPopup.close();
+});
+
 function handleCheck(completed) {
   todoCounter.updateCompleted(completed);
 }
@@ -40,22 +56,6 @@ function handleAddTodo(completed) {
   todoCounter.updateTotal(false);
 }
 
-addTodoButton.addEventListener("click", () => {
-  addTodoPopup.open();
-});
-
-addTodoCloseBtn.addEventListener("click", () => {
-  addTodoPopup.close();
-});
-
-const section = new Section({
-  items: initialTodos,
-  renderer: renderTodo,
-  containerSelector: todosList,
-});
-
-section.renderItems();
-
 const addTodoPopup = new PopupWithForm({
   popupSelector: "#add-todo-popup",
   handleFormSubmit: (inputValues) => {
@@ -68,6 +68,7 @@ const addTodoPopup = new PopupWithForm({
     const values = { name, date, id };
     renderTodo(values);
     newTodoValidator.resetValidation();
+    handleAddTodo(completed);
     addTodoPopup.close();
   },
 });

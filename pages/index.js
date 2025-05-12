@@ -48,12 +48,10 @@ addTodoCloseBtn.addEventListener("click", () => {
   addTodoPopup.close();
 });
 
-console.log(todoTemplate);
-
 const section = new Section({
   items: initialTodos,
   renderer: renderTodo,
-  containerSelector: todoTemplate,
+  containerSelector: todosList,
 });
 
 section.renderItems();

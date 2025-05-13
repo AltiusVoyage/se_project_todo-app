@@ -49,9 +49,6 @@ function handleDelete(completed) {
   if (completed) {
     todoCounter.updateCompleted(false);
   }
-}
-
-function handleAddTodo() {
   todoCounter.updateTotal(false);
 }
 

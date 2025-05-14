@@ -4,15 +4,9 @@ class Popup {
     this._popupCloseBtn = this._popupEl.querySelector(".popup__close");
   }
 
-  _handleEscapeClose(evt) {
-    if (evt.key === "Escape") {
-      this.close();
-    }
-  }
-
   open() {
     this._popupEl.classList.add("popup_visible");
-    document.addEventListener("keyup", this._handleEscapeClose);
+    document.addEventListener("keydown", this._handleEscapeClose);
   }
 
   close() {
@@ -27,10 +21,6 @@ class Popup {
   };
 
   setEventListeners() {
-    this._popupCloseBtn.addEventListener("click", () => {
-      this.close();
-    });
-
     this._popupEl.addEventListener("mousedown", (evt) => {
       if (this._popupEl === evt.target || evt.target === this._popupCloseBtn) {
         this.close();

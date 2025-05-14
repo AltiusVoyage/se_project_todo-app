@@ -48,6 +48,7 @@ class Todo {
 
   _remove = () => {
     this._todoElement.remove();
+    this._todoElement = null;
   };
 
   getView() {
